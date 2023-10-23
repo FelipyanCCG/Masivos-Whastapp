@@ -78,7 +78,7 @@ function send_message()
         $registro = json_decode($_POST["registro"], true);
         $resultados = [];
         
-        if (preg_match('/^\d{12}$/', $registro["telefono"])) {
+        if (preg_match('/573^\d{9}$/', $registro["telefono"])) {
             $telephone = $registro["telefono"];
         } else {
             $telephone = "fall";
