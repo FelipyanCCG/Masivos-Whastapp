@@ -1,10 +1,11 @@
-import {  comprobarEstadoSesion, ocultarFormularioLogin, setCookie, getCookie  } from './sesion.js';
+import { comprobarEstadoSesion, ocultarFormularioLogin, setCookie, getCookie } from './sesion.js';
 
 const loginContainer = document.getElementById("formLogin");
 const bodytemplate = document.getElementById("bodytemplate")
 const body = document.getElementById("body");
 let loginCheck = false;
 let actualyUser = "";
+let tokenLogin = ""
 
 function Start(flag) {
     loginContainer.style.display = flag ? "block" : "none";
@@ -16,55 +17,47 @@ function Start(flag) {
     document.getElementById("user").innerHTML = flag ? actualyUser : getCookie("username");
 }
 // Función para realizar el inicio de sesión
-function login( username, password ) {
+function login(username, password) {
     if (username === "" || password === "") {
 
         alert("Por favor, complete todos los campos.");
 
     } else {
-        const data = new FormData();
+        const myHeaders = new Headers();
+        myHeaders.append("Accept", "application/json");
 
-        data.append("username", username);
+        const data = new FormData();
+        data.append("email", username);
         data.append("password", password);
 
-        console.log(username, password);
+        console.log('email' + username, 'Password' + password);
 
-        return fetch('./newphp.php', {
+        return fetch('http://compartida.ccgltda.com/api/login', {
             method: "POST",
-            body: data
+            headers: myHeaders,
+            body: data,
+            redirect: 'follow'
         })
-            .then(response => {
-
-                console.log(response);
-
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error("Error en la solicitud");
+        .then(response => response.json())
+        .catch(error => {
+            
+            alert("Hubo un error en la solicitud. Por favor, inténtalo de nuevo más tarde.");
+        })
+        .then(result => {
+            if (result.data && result.data.token) {
+                tokenLogin = result.data.token
+                console.log("Token: " + tokenLogin);
+                Start(0);    
+                if (flexCheckDefault.checked) {
+                    setCookie("loggedIn", "true", 0.05);
                 }
-            })
-            .then(data => {
-                if (data.message === "Credenciales válidas") {
-                    Start(0);
-                    console.log("Usuario autenticado " + data.nameCreated);
-                    actualyUser = data.nameCreated;
-                    loginCheck = data.loggedIn;
-                    if (flexCheckDefault.checked) {
-                        setCookie("loggedIn", "true", 0.05);
-                    }
-                    console.log("Usuario autenticado");
+                console.log("Usuario autenticado");
+            } else {
+                alert("Credenciales inválidas");
+                Start(1);
+            }
+        })
 
-                } else {
-                    alert("Credenciales inválidas");
-                    Start(1);
-
-                }
-            })
-            .catch(error => {
-                console.error("Error en la solicitud:", error);
-                alert("Hubo un error en la solicitud. Por favor, inténtalo de nuevo más tarde.");
-
-            });
     }
 }
 
@@ -77,10 +70,12 @@ function cerrarSesion(setCookie) {
     window.location.reload();
 
 }
-
+function obtenerTokenLogin(){
+    return tokenLogin
+}
 function obtenerUser() {
 
     return actualyUser;
 }
 
-export { login, cerrarSesion, obtenerUser };
+export { login, cerrarSesion, obtenerUser, obtenerTokenLogin };

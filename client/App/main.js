@@ -2,7 +2,7 @@ const username = document.getElementById("username");
 const password = document.getElementById("password");
 const numeroEjemplo = document.getElementById("numeroEjemplo");
 
-import {  login, cerrarSesion, obtenerUser } from './login.js';
+import { login, cerrarSesion, obtenerUser, obtenerTokenLogin } from './login.js';
 import {  cargarYValidarArchivo, descargarEjemplo } from './excel.js';
 import { enviarRegistro, enviarRegistros, enviarEjemplo } from './envio.js';
 import { mostrarToast, manual } from './visual.js';
@@ -38,8 +38,9 @@ document.getElementById("enviarArchivo").addEventListener("click",() => {
     const plantilla1 = obtenerPlantilla();
     const imagen1 = obtenerImagen();
     const user1 = obtenerUser();
+    const tokenLogin = obtenerTokenLogin();
 
-    enviarRegistros(plantilla1, imagen1, user1);
+    enviarRegistros(plantilla1, imagen1, user1, tokenLogin);
 });
 
 // // Eventos y funciones relacionados con la carga de plantillas y el envío de ejemplo
@@ -51,8 +52,9 @@ document.getElementById("enviarEjemplo").addEventListener("click", () => {
     const plantilla = obtenerPlantilla();
     const imagen = obtenerImagen();
     const user = obtenerUser();
+    const tokenLogin = obtenerTokenLogin();
 
-    enviarEjemplo(numeroEjemplo, plantilla, imagen, user);
+    enviarEjemplo(numeroEjemplo, plantilla, imagen, user, tokenLogin);
 
 });
 
