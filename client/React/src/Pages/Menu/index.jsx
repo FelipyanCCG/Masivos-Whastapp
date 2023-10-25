@@ -8,26 +8,26 @@ const Menu = () => {
 
     useEffect(() => {
         context.setGetDataClient(true);
-    }, []); 
+    }, []);
 
     const renderView = () => {
         if (context.getDataClients && context.getDataClients.clients?.length > 0) {
             return (
-                context.getDataClients.clients.map(item => (
-                    <Card key={item.id} data={item} />
-                ))
+                <div className="grid gap-3 grid-cols-3 w-full max-w-screen-lg">
+                    {context.getDataClients.clients.map(item => (
+                        <Card key={item.id} data={item} />
+                    ))}
+                </div>
             );
         } else {
-            return <div>We don't have anything :(</div>;
+            return <div className="text-center text-xl font-semibold mt-8">We don't have anything :(</div>;
         }
     }
 
     return (
         <Layout>
-            <h1>Menu</h1>
-            <div className='grid gap-3 grid-cols-3 w-full max-w-screen-lg'>
-                {renderView()}
-            </div>
+            <h1 className="text-3xl font-semibold mb-4">Menu</h1>
+            {renderView()}
         </Layout>
     );
 }

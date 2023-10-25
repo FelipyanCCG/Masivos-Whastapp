@@ -1,9 +1,11 @@
 import { useContext } from 'react'
 import { MasivosContext } from '../../Context'
 import { useNavigate } from 'react-router-dom'
+
 const Card = (props) => {
   const context = useContext(MasivosContext)
   const navigate = useNavigate();
+
   const show = (data) => {
     console.log(data);
     context.setHomeDataClient(data)
@@ -11,25 +13,15 @@ const Card = (props) => {
   }
 
   return (
-    <div
-      className='bg-white cursor-pointer w-56 h-60 rounded-lg'
-      >
-      <figure className='relative mb-2 w-full h-4/5'
-      onClick={() => show(props.data)}
-      >
-        <span className='absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xs m-2 px-3 py-0.5'>+</span>
-        <img className='w-full h-full object-cover rounded-lg' 
-        src={props.data?.attributes.image} 
-        alt='art' />
-        <div 
-            >
-          
-        </div>
+    <div className='bg-white cursor-pointer w-64 h-72 rounded-lg shadow-md hover:shadow-lg'>
+      <figure className='relative w-full h-4/5' onClick={() => show(props.data)}>
+        <span className='absolute bottom-2 left-2 bg-white/70 text-black text-sm font-semibold p-1 px-2 rounded'>+</span>
+        <img className='w-full h-full object-cover rounded-t-lg' src={props.data?.attributes.image} alt='Client' />
       </figure>
-      <p className='flex justify-between'>
-        <span className='text-sm font-light'>{props.data?.attributes.name}</span>
-        <span className='text-lg font-medium'>ID : {props.data?.id}</span>
-      </p>
+      <div className='p-3'>
+        <p className='text-lg font-semibold'>{props.data?.attributes.name}</p>
+        <p className='text-gray-500 text-sm mt-1'>ID: {props.data?.id}</p>
+      </div>
     </div>
   )
 }
