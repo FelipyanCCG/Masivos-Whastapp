@@ -103,6 +103,7 @@ const [getDataClients, setGetDataClients] = useState([]);
     }, [getDataClient]);
   
     
+    const [homeDataClient, setHomeDataClient] = useState({});
 
   return (
     <MasivosContext.Provider
@@ -120,7 +121,9 @@ const [getDataClients, setGetDataClients] = useState([]);
         getDataClient,
         setGetDataClient,
         getDataClients,
-        setGetDataClients
+        setGetDataClients,
+        homeDataClient, 
+        setHomeDataClient
       }}
     >
       {children}

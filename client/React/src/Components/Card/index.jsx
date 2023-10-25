@@ -1,12 +1,22 @@
-
+import { useContext } from 'react'
+import { MasivosContext } from '../../Context'
+import { useNavigate } from 'react-router-dom'
 const Card = (props) => {
-  console.log(props);
+  const context = useContext(MasivosContext)
+  const navigate = useNavigate();
+  const show = (data) => {
+    console.log(data);
+    context.setHomeDataClient(data)
+    navigate('/Home');
+  }
 
   return (
     <div
       className='bg-white cursor-pointer w-56 h-60 rounded-lg'
       >
-      <figure className='relative mb-2 w-full h-4/5'>
+      <figure className='relative mb-2 w-full h-4/5'
+      onClick={() => show(props.data)}
+      >
         <span className='absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xs m-2 px-3 py-0.5'>+</span>
         <img className='w-full h-full object-cover rounded-lg' 
         src={props.data?.attributes.image} 

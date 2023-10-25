@@ -14,28 +14,18 @@ const Navbar = () => {
     <nav className='flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light'>
       <ul className='flex items-center gap-3'>
         <li className='font-semibold text-lg'>
-          <NavLink to='/'>
+          <NavLink to='/Menu'>
             Masivos
           </NavLink>
         </li>
         <li>
           <NavLink
-            to='/'
+            to='/Menu'
 
             className={({ isActive }) =>
               isActive ? activeStyle : undefined
             }>
-            All
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to='/clothes'
-
-            className={({ isActive }) =>
-              isActive ? activeStyle : undefined
-            }>
-            CCG
+            Menu
           </NavLink>
         </li>
 
