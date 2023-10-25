@@ -34,9 +34,9 @@ export const MasivosProvider = ({ children }) => {
 
         if (result.data && result.data.token) {
           setUserLogin(result.data);
-          setLogin(true); 
-          navigate('/Home');
-          console.log(userLogin.attributes.name); 
+          setLogin(true);
+          navigate('/Menu');
+          console.log(userLogin.attributes.name);
         } else {
           alert('Credenciales inválidas');
         }
@@ -52,6 +52,58 @@ export const MasivosProvider = ({ children }) => {
     }
   }, [submitButtonClicked]);
 
+const [getDataClient, setGetDataClient] = useState(false);
+const [getDataClients, setGetDataClients] = useState([]);
+
+  useEffect(() => {
+    setGetDataClients({
+        "id": 84,
+        "type": "User",
+        "attributes": {
+            "name": "Flossie Jerde",
+            "email": "i@admin.com",
+            "token": "4|P0vGI3nr4JSJb9VbUYHpjmsH0hl078MjnXUJjbFLd3747454",
+            "created_at": "2023-10-25T19:40:57.000000Z"
+        },
+        "clients": [
+            {
+                "id": 4,
+                "type": "client",
+                "attributes": {
+                    "name": "CCG",
+                    "image": "https://cdn2.hubspot.net/hubfs/3882410/Imported_Blog_Media/la-gente-en-el-contact-center.jpg"
+                }
+            },
+            {
+                "id": 5,
+                "type": "client",
+                "attributes": {
+                    "name": "CCG2",
+                    "image": "https://cdn2.hubspot.net/hubfs/3882410/Imported_Blog_Media/panorama-2016-contact-center-1.jpg"
+                }
+            },
+            {
+                "id": 6,
+                "type": "client",
+                "attributes": {
+                    "name": "CCG3",
+                    "image": "https://cdn2.hubspot.net/hubfs/3882410/Imported_Blog_Media/la-gente-en-el-contact-center.jpg"
+                }
+            },
+            {
+                "id": 7,
+                "type": "client",
+                "attributes": {
+                    "name": "CCG4",
+                    "image": "https://cdn2.hubspot.net/hubfs/3882410/Imported_Blog_Media/panorama-2016-contact-center-1.jpg"
+                }
+            }
+        ]
+    })
+    }, [getDataClient]);
+  
+    
+
   return (
     <MasivosContext.Provider
       value={{
@@ -64,7 +116,11 @@ export const MasivosProvider = ({ children }) => {
         submitButtonClicked,
         setSubmitButtonClicked,
         userLogin,
-        setUserLogin
+        setUserLogin,
+        getDataClient,
+        setGetDataClient,
+        getDataClients,
+        setGetDataClients
       }}
     >
       {children}

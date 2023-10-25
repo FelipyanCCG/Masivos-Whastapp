@@ -35,7 +35,7 @@ const Navbar = () => {
             className={({ isActive }) =>
               isActive ? activeStyle : undefined
             }>
-            DiBanka
+            CCG
           </NavLink>
         </li>
 

@@ -5,11 +5,10 @@ import { MasivosContext } from '../../Context';
 function Home() {
     const context = useContext(MasivosContext);
     
-
     return (
         <Layout>
             <div className="flex items-center justify-center mb-4">
-                <h1 className="text-3xl font-medium">DiBanka</h1>
+                <h1 className="text-3xl font-medium">Contact Center Group</h1>
             </div>
             <div className="container mx-full my-full bg bg-gray-200">
                 <div className='flex justify-between'>
