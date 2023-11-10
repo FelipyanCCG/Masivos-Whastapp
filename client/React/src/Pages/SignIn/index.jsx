@@ -11,6 +11,7 @@ function SignIn() {
 
   const handlePasswordChange = (e) => {
     context.setPassword(e.target.value);
+    console.log(e.target.value)
   };
 
   const handleSubmit = (e) => {

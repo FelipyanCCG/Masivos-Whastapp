@@ -30,7 +30,7 @@ const Navbar = () => {
           </ul>
           <ul className="flex items-center gap-6">
             <li className="text-gray-600">
-              {name}
+              {context.login ? `${name}` : 'Welcome Guest'}
             </li>
             <li>
               <NavLink
@@ -42,7 +42,7 @@ const Navbar = () => {
                   activeStyle ? activeStyle : ''
                 }`}
               >
-                Log Out
+                {context.login ? 'Salir' : ''}
               </NavLink>
             </li>
           </ul>
