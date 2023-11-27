@@ -23,7 +23,7 @@ export const MasivosProvider = ({ children }) => {
 
         console.log('email' + email, 'Password' + password);
 
-        const response = await fetch('http://compartida.ccgltda.com/api/login', {
+        const response = await fetch('http://localhost:8000/api/login', {
           method: 'POST',
           headers: myHeaders,
           body: data,
@@ -32,7 +32,7 @@ export const MasivosProvider = ({ children }) => {
 
         const result = await response.json();
 
-        if (result.data && result.data.token) {
+        if (result.data && result.data.attributes.name) {
           setUserLogin(result.data);
           setLogin(true);
           navigate('/Menu');

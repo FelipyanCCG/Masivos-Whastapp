@@ -8,7 +8,8 @@ const Navbar = () => {
   const name = context.userLogin?.attributes?.name;
 
   return (
-    <nav className="bg-white shadow-md fixed z-10 top-0 w-full py-5 px-8 text-sm font-light">
+    context.login ? (
+      <nav className="bg-white shadow-md fixed z-10 top-0 w-full py-5 px-8 text-sm font-light">
       <div className="container mx-auto">
         <div className="flex justify-between items-center">
           <ul className="flex items-center gap-6">
@@ -49,6 +50,9 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+    ) : (
+      null
+    )
   );
 }
 

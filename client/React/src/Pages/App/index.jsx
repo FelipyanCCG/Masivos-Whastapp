@@ -19,7 +19,7 @@ const AppRoutes = () => {
     { path: '/', element: <SignIn /> },
     { path: '/*', element: <NotFound /> },
   ]);
-  return routes;
+  return routes
 };
 
 const App = () => {
