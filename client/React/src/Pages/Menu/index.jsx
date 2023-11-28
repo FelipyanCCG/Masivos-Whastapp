@@ -13,20 +13,19 @@ const Menu = () => {
     const renderView = () => {
         if (context.getDataClients && context.getDataClients.clients?.length > 0) {
             return (
-                <div className="grid gap-3 grid-cols-3 w-full max-w-screen-lg">
+                <div className="flex flex-wrap justify-center gap-12">
                     {context.getDataClients.clients.map(item => (
                         <Card key={item.id} data={item} />
                     ))}
                 </div>
             );
         } else {
-            return <div className="text-center text-xl font-semibold mt-8">We don't have anything :(</div>;
+            return <div className="text-center text-xl font-semibold mt-8">Ninguna servicio a disposicion:( </div>;
         }
     }
 
     return (
-        <Layout>
-            <h1 className="text-3xl font-semibold mb-4">Menu</h1>
+        <Layout title={'Menu'}>
             {renderView()}
         </Layout>
     );

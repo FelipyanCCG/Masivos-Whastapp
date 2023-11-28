@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { MasivosContext } from '../../Context'
 import { useNavigate } from 'react-router-dom'
 
-const Card = (props) => {
+const Card = ({ data }) => {
   const context = useContext(MasivosContext)
   const navigate = useNavigate();
 
@@ -12,15 +12,28 @@ const Card = (props) => {
     navigate('/Home');
   }
 
+  const handleImageError = (e) => {
+    e.target.src = 'path/to/default/image.jpg'; // replace with your default image path
+  }
+
   return (
-    <div className='bg-white cursor-pointer w-64 h-72 rounded-lg shadow-md hover:shadow-lg'>
-      <figure className='relative w-full h-4/5' onClick={() => show(props.data)}>
-        <span className='absolute bottom-2 left-2 bg-white/70 text-black text-sm font-semibold p-1 px-2 rounded'>+</span>
-        <img className='w-full h-full object-cover rounded-t-lg' src={props.data?.attributes.image} alt='Client' />
-      </figure>
-      <div className='p-3'>
-        <p className='text-lg font-semibold'>{props.data?.attributes.name}</p>
-        <p className='text-gray-500 text-sm mt-1'>ID: {props.data?.id}</p>
+    <div 
+      className='flex flex-col bg-white cursor-pointer w-64 h-62 p-4 shadow-lg hover:shadow-2xl transition-shadow duration-200 rounded-lg transform hover:scale-105'
+      onClick={() => show(data)}
+      role="button"
+      aria-label="Show details"
+    >
+      <div className='w-full h-48 relative overflow-hidden rounded-lg'>
+        <img 
+          className='w-full h-full object-cover rounded-lg transform hover:scale-110 transition-transform duration-200' 
+          src={data?.attributes.image}
+          alt='Client' 
+          onError={handleImageError}
+        />
+      </div>
+      <div className='mt-4'>
+        <p className='text-lg font-bold text-gray-800 hover:text-blue-600 transition-colors duration-200'>{data?.attributes.name}</p>
+        <p className='text-gray-500 mt-2'>ID: {data?.id}</p>
       </div>
     </div>
   )
