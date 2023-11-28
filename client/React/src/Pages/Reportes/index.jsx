@@ -1,66 +1,87 @@
-import { Layout } from "../../Components/Layout";
-
+import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Layout } from '../../Components/Layout';
+import { MasivosContext } from '../../Context';
+import { useTable, useSortBy } from 'react-table';
+import useRows from './useRows';
+import useColumns from './useColumns';
+import { IoReturnUpBackOutline } from "react-icons/io5";
+import { AiOutlineBars } from "react-icons/ai";
+import { FiDownloadCloud } from "react-icons/fi";
 const Reportes = () => {
-  const datos = [
-    {
-      "id": 1,
-      "nombre": "Juan Pérez",
-      "edad": 25,
-      "ciudad": "Bogotá"
-    },
-    {
-      "id": 2,
-      "nombre": "María García",
-      "edad": 30,
-      "ciudad": "Medellín"
-    },
-    {
-      "id": 3,
-      "nombre": "Carlos Rodríguez",
-      "edad": 28,
-      "ciudad": "Cali"
-    },
-    {
-      "id": 4,
-      "nombre": "Laura Martínez",
-      "edad": 22,
-      "ciudad": "Barranquilla"
-    },
-    {
-      "id": 5,
-      "nombre": "Pedro López",
-      "edad": 35,
-      "ciudad": "Cartagena"
-    }
-  ];
+    const context = useContext(MasivosContext);
+    const columns = useColumns();
+    const data = useRows();
+    const table = useTable({ columns, data }, useSortBy);
 
-  return (
-    <Layout title={'Reportes'}>
-      <div>
-        <h2>Tabla de Reportes</h2>
-        <table border="1">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Edad</th>
-              <th>Ciudad</th>
-            </tr>
-          </thead>
-          <tbody>
-            {datos.map((registro) => (
-              <tr key={registro.id}>
-                <td>{registro.id}</td>
-                <td>{registro.nombre}</td>
-                <td>{registro.edad}</td>
-                <td>{registro.ciudad}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </Layout>
-  );
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = table;
+
+    return (
+        <Layout title={context.homeDataClient.attributes.name + ' - Reportes'}>
+            <div className="container mx-auto p-2">
+                <div className='flex justify-between mb-2'>
+                    <NavLink
+                        to="/Menu"
+                        className="text-black text-3xl font-bold"
+                    >
+                        <AiOutlineBars />
+                    </NavLink>
+                    <NavLink
+                        to="/Home"
+                        className="text-black text-3xl font-bold"
+                    >
+                        <IoReturnUpBackOutline />
+                    </NavLink>
+                    <NavLink
+                        to="/Home"
+                        className="text-black text-3xl font-bold"
+                    >
+                        <FiDownloadCloud />
+                    </NavLink>
+                </div>
+                <table className="min-w-full bg-white border border-gray-300 shadow-lg">
+                    <thead>
+                        {headerGroups.map(headerGroup => (
+                            <tr {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map(column => (
+                                    <th
+                                        {...column.getHeaderProps(column.getSortByToggleProps())}
+                                        className={`py-2 px-4 border border-gray-300 shadow-lg ${column.isSorted
+                                                ? column.isSortedDesc
+                                                    ? 'bg-red-500 text-white'
+                                                    : 'bg-green-500 text-white'
+                                                : 'bg-gray-200'
+                                            }`}
+                                    >
+                                        {column.render('Header')}
+                                        <span className="ml-1">
+                                            {column.isSorted ? (column.isSortedDesc ? '↓' : '↑') : ''}
+                                        </span>
+                                    </th>
+                                ))}
+                            </tr>
+                        ))}
+                    </thead>
+                    <tbody {...getTableBodyProps()}>
+                        {rows.map(row => {
+                            prepareRow(row);
+                            return (
+                                <tr {...row.getRowProps()} className="border-t border-gray-300">
+                                    {row.cells.map(cell => (
+                                        <td {...cell.getCellProps()} className="border border-gray-300 py-2 px-4">
+                                            {cell.render('Cell')}
+                                        </td>
+                                    ))}
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+
+            </div>
+
+        </Layout>
+    );
 };
 
 export { Reportes };

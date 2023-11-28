@@ -1,5 +1,8 @@
 import { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { handleLogin } from '../Api';
+import Swal from 'sweetalert2';
+
 export const MasivosContext = createContext();
 
 export const MasivosProvider = ({ children }) => {
@@ -10,48 +13,58 @@ export const MasivosProvider = ({ children }) => {
   const [userLogin, setUserLogin] = useState({});
   const [plantilla, setPlantilla] = useState('');
 
-  const navigate = useNavigate(); // Añade esta línea
+  const navigate = useNavigate(); 
 
   useEffect(() => {
-    const handleLogin = async () => {
-      try {
-        const myHeaders = new Headers();
-        myHeaders.append('Accept', 'application/json');
-
-        const data = new FormData();
-        data.append('email', email);
-        data.append('password', password);
-
-        console.log('email' + email, 'Password' + password);
-
-        const response = await fetch('http://localhost:8000/api/login', {
-          method: 'POST',
-          headers: myHeaders,
-          body: data,
-          redirect: 'follow',
-        });
-
-        const result = await response.json();
-
-        if (result.data && result.data.attributes.name) {
-          setUserLogin(result.data);
-          setLogin(true);
-          navigate('/Menu');
-          console.log(userLogin.attributes.name);
-        } else {
-          alert('Credenciales inválidas');
-        }
-      } catch (error) {
-        console.log('Hubo un error en la solicitud. Por favor, inténtalo de nuevo más tarde.');
-      }
-      setSubmitButtonClicked(false);
-    };
-
     // Llamar a handleLogin cuando cambien email o password
     if (email !== '' && password !== '') {
-      handleLogin();
+
+        handleLogin(email, password).then(result => {
+            if (result.data && result.data.attributes.name) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener("mouseenter", Swal.stopTimer);
+                      toast.addEventListener("mouseleave", Swal.resumeTimer);
+                    },
+                  });
+            
+                  Toast.fire({
+                    icon: "success",
+                    iconColor: "##0d6efd",
+                    title: "¡Bienvenido!",
+                  });
+                setUserLogin(result.data);
+                setLogin(true);
+                navigate('/Menu');
+            } else {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener("mouseenter", Swal.stopTimer);
+                      toast.addEventListener("mouseleave", Swal.resumeTimer);
+                    },
+                  });
+            
+                  Toast.fire({
+                    icon: "error",
+                    iconColor: "##0d6efd",
+                    title: "¡Credenciales incorrectas!",
+                  });
+            }
+        })
+
     }
-  }, [submitButtonClicked]);
+    setSubmitButtonClicked(false);
+}, [submitButtonClicked]);
 
 const [getDataClient, setGetDataClient] = useState(false);
 const [getDataClients, setGetDataClients] = useState([]);

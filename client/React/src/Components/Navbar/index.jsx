@@ -7,7 +7,6 @@ import { HiOutlineLogout } from "react-icons/hi";
 
 const Navbar = () => {
   const context = useContext(MasivosContext);
-  const activeStyle = 'underline underline-offset-4';
   const name = context.userLogin?.attributes?.name;
 
     const [isScrolled, setIsScrolled] = useState(false);
@@ -39,9 +38,9 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-            {isScrolled && context.homeDataClient.attributes.image ? (
+            {isScrolled && context.homeDataClient.attributes?.image ? (
                 <img 
-                src={context.homeDataClient.attributes.image} 
+                src={context.homeDataClient.attributes?.image} 
                 className="w-12" alt="Logo" /> ) 
                 : null
               }

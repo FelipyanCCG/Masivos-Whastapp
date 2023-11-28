@@ -13,7 +13,6 @@ import { Reportes } from '../Reportes';
 
 const AppRoutes = () => {
   const context = useContext(MasivosContext);
-  console.log(context.login);
   let routes = useRoutes([
     { path: '/Home', element: <ProtectedRoute canActivate={context.login}><Home /></ProtectedRoute> },
     { path: '/Menu', element: <ProtectedRoute canActivate={context.login}><Menu /></ProtectedRoute> },

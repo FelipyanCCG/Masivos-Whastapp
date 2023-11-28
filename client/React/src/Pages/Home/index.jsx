@@ -79,7 +79,7 @@ function Home() {
         </div>
       </div>
 
-      <input type="file" class="block w-full text-sm text-gray-500
+      <input type="file" className="block w-full text-sm text-gray-500
       file:me-4 file:py-2 file:px-4
       file:rounded-lg file:border-0
       file:text-sm file:font-semibold
@@ -126,3 +126,4 @@ function Home() {
 }
 
 export { Home };
+

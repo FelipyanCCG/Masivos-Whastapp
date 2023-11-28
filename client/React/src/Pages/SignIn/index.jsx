@@ -7,21 +7,20 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function SignIn() {
   const context = useContext(MasivosContext);
-
+  const [showPassword, setShowPassword] = useState(false);
+  
   const handleEmailChange = (e) => {
     context.setEmail(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
     context.setPassword(e.target.value);
-    console.log(e.target.value)
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     context.setSubmitButtonClicked(true);
   };
-  const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -35,7 +34,7 @@ function SignIn() {
         <div className='items-center flex flex-col'>
           <img src={Logo} alt="Logo" className='w-20' />
           <h1 className='text-[#0096C8] text-4xl font-bold'>Iniciar sesión</h1>
-          <h2 className='text-[#212529] font-bold mt-4'>Sistema de gestión del Talento Humano</h2>
+          <h2 className='text-[#212529] font-bold mt-4'>Masivos Whastapp</h2>
 
           <form onSubmit={handleSubmit} className="w-full max-w-sm items-center justify-center flex flex-col mt-2">
             <input
