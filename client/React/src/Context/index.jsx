@@ -1,8 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { handleLogin } from '../Api';
-import Swal from 'sweetalert2';
-
+import { Modal } from '../Utils/Modal';
 export const MasivosContext = createContext();
 
 export const MasivosProvider = ({ children }) => {
@@ -21,44 +20,13 @@ export const MasivosProvider = ({ children }) => {
 
         handleLogin(email, password).then(result => {
             if (result.data && result.data.attributes.name) {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                      toast.addEventListener("mouseenter", Swal.stopTimer);
-                      toast.addEventListener("mouseleave", Swal.resumeTimer);
-                    },
-                  });
-            
-                  Toast.fire({
-                    icon: "success",
-                    iconColor: "##0d6efd",
-                    title: "¡Bienvenido!",
-                  });
+                const welcome = '¡Bienvenido! ' + result.data.attributes.name;
+                Modal('success', welcome);
                 setUserLogin(result.data);
                 setLogin(true);
                 navigate('/Menu');
             } else {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                      toast.addEventListener("mouseenter", Swal.stopTimer);
-                      toast.addEventListener("mouseleave", Swal.resumeTimer);
-                    },
-                  });
-            
-                  Toast.fire({
-                    icon: "error",
-                    iconColor: "##0d6efd",
-                    title: "¡Credenciales incorrectas!",
-                  });
+                Modal('error', 'Credenciales incorrectas');  
             }
         })
 

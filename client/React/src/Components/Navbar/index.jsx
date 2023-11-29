@@ -1,9 +1,11 @@
-import { NavLink } from 'react-router-dom';
 import { useContext , useState, useEffect} from 'react';
+import { NavLink } from 'react-router-dom';
 import { MasivosContext } from '../../Context';
+import { Modal } from '../../Utils/Modal';
 import Logoh from '../../assets/logo-header.png';
 import { FaUserCircle } from "react-icons/fa";
 import { HiOutlineLogout } from "react-icons/hi";
+import { AiOutlineSetting } from "react-icons/ai";
 
 const Navbar = () => {
   const context = useContext(MasivosContext);
@@ -56,9 +58,18 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
+                to="/Config"
+                className="text-white text-3xl font-bold"
+              >
+                <AiOutlineSetting />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to="/"
                 onClick={() => {
                   context.setLogin(false);
+                  Modal('info', 'Sesión cerrada');
                 }}
                 className="text-white text-3xl font-bold"
               >

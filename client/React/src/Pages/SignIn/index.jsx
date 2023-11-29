@@ -62,13 +62,9 @@ function SignIn() {
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
               </button>
             </div>
-            <span
-              className="text-[#0096C8] mt-10">
-              ¿Olvidaste tu contraseña?
-            </span>
             <button
               type="submit"
-              className="bg-[#0096C8] text-white w-4/6 h-8 mt-2 rounded transition-colors duration-200">
+              className="bg-[#0096C8] text-white w-4/6 h-8 mt-8 rounded transition-colors duration-200">
               Ingresar
             </button>
           </form>

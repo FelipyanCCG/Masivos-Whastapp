@@ -6,6 +6,7 @@ const handleLogin = async (email,password) => {
         const data = new FormData();
         data.append('email', email);
         data.append('password', password);
+        data.append('device_name','app')
 
         const response = await fetch('http://localhost:8000/api/login', {
             method: 'POST',

@@ -8,8 +8,9 @@ import { SignIn } from '../SignIn';
 import { Navbar } from '../../Components/Navbar';
 import { Home } from '../Home';
 import { Menu } from '../Menu';
-import './App.css';
 import { Reportes } from '../Reportes';
+import { Config } from '../Config';
+import './App.css';
 
 const AppRoutes = () => {
   const context = useContext(MasivosContext);
@@ -17,6 +18,7 @@ const AppRoutes = () => {
     { path: '/Home', element: <ProtectedRoute canActivate={context.login}><Home /></ProtectedRoute> },
     { path: '/Menu', element: <ProtectedRoute canActivate={context.login}><Menu /></ProtectedRoute> },
     { path: '/Reportes', element: <ProtectedRoute canActivate={context.login}><Reportes /></ProtectedRoute> },
+    { path: '/Config', element: <ProtectedRoute canActivate={context.login}><Config /></ProtectedRoute> },
     { path: '/', element: <SignIn /> },
     { path: '/*', element: <NotFound /> },
   ]);
