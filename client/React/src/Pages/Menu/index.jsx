@@ -11,10 +11,13 @@ const Menu = () => {
     }, []);
 
     const renderView = () => {
-        if (context.getDataClients && context.getDataClients.clients?.length > 0) {
+        const filteredData = context.getDataClients.filter(item => 
+           item.attributes.users.includes(context.userLogin.attributes.name));
+       
+           if (context.getDataClients && filteredData?.length > 0) {
             return (
                 <div className="flex flex-wrap justify-center gap-12">
-                    {context.getDataClients.clients.map(item => (
+                    {filteredData.map(item => (
                         <Card key={item.id} data={item} />
                     ))}
                 </div>

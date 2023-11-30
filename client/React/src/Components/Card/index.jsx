@@ -32,8 +32,15 @@ const Card = ({ data }) => {
         />
       </div>
       <div className='mt-4'>
-        <p className='text-lg font-bold text-gray-800 hover:text-blue-600 transition-colors duration-200'>{data?.attributes.name}</p>
-        <p className='text-gray-500 mt-2'>ID: {data?.id}</p>
+        <p className='text-lg font-bold text-gray-800 hover:text-blue-600 transition-colors duration-200'>
+          {data?.attributes.Client}
+        </p>
+        <p className='text-gray-500 mt-2'>
+          Telefono: {data?.attributes.phone_id}
+        </p>
+        <p className='text-gray-500 mt-2'>
+          ID: {data?.id}
+        </p>
       </div>
     </div>
   )

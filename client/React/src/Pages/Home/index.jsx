@@ -8,7 +8,7 @@ function Home() {
   const context = useContext(MasivosContext);
 
   return (
-    <Layout title={context.homeDataClient.attributes.name}>
+    <Layout title={context.homeDataClient.attributes.Client}>
       <div className="p-2 bg-white w-5/6">
         <div className="flex justify-between">
           <div className="rounded-lg shadow-xl border bg-white w-4/6">
