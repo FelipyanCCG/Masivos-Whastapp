@@ -7,11 +7,11 @@ const Card = ({ data }) => {
   const navigate = useNavigate();
 
   const show = (data) => {
-    console.log(data);
+    console.log(data?.attributes.image);
     context.setHomeDataClient(data)
     navigate('/Home');
   }
-
+  
   const handleImageError = (e) => {
     e.target.src = 'path/to/default/image.jpg'; // replace with your default image path
   }

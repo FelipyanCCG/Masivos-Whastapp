@@ -15,9 +15,9 @@ export const MasivosProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Llamar a handleLogin cuando cambien email o password
-    if (email !== '' && password !== '') {
-
+    
+    if (email !== '' && password !== '' && submitButtonClicked === true) {
+          Modal('question', 'Validando credenciales...');
       handleLogin(email, password).then(result => {
         if (result.data && result.data.attributes.name) {
           const welcome = '¡Bienvenido! ' + result.data.attributes.name;
@@ -28,13 +28,12 @@ export const MasivosProvider = ({ children }) => {
           navigate('/Menu');
         } else {
           Modal('error', 'Credenciales incorrectas');
+          setSubmitButtonClicked(false);
         }
       })
 
-
     }
 
-    setSubmitButtonClicked(false);
   }, [submitButtonClicked]);
 
   const [getDataClient, setGetDataClient] = useState(false);
@@ -50,11 +49,12 @@ export const MasivosProvider = ({ children }) => {
 
 
   const [homeDataClient, setHomeDataClient] = useState({});
+  
 
   const [fieldsFormConfig, setFieldsFormConfig] = useState(
     {
       'Usuarios': {
-        'Crear': { fields: ['name', 'email', 'password'], api: handleUser },
+        'Crear': { fields: ['name', 'email', 'password', 'image'], api: handleUser },
         'Editar': [],
         'Eliminar': []
       },

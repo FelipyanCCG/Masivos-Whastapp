@@ -7,7 +7,6 @@ import { FaUsersGear } from "react-icons/fa6";
 import Swal from 'sweetalert2';
 
 const Form = async (tokenUser, title, mode, fields,api) => {
-    console.log(fields);
   
     const inputHTML = fields
       .map((field, index) => {
@@ -29,9 +28,12 @@ const Form = async (tokenUser, title, mode, fields,api) => {
     });
   
     if (formValues) {
-      Swal.fire(JSON.stringify(formValues));
-      console.log(formValues);
-      api(tokenUser, formValues);
+      const response = await api(tokenUser, formValues);
+      Swal.fire({
+        title: 'Respuesta',
+        icon: 'success',
+        text: JSON.stringify(response),
+      });
     }
   };
   

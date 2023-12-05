@@ -27,16 +27,24 @@ const Navbar = () => {
 
     }, []);
 
+    const Restore = () => {
+      context.setGetDataClient(false);
+      context.setSubmitButtonClicked(false);
+      context.setGetDataClients([]);
+      context.setLogin(false);
+      Modal('info', 'Sesión cerrada');
+    }
+
 
   return (
     context.login ? (
       <nav className="bg-[#0096C8] fixed z-10 top-0 w-full h-24 text-sm font-light justifiy-between items-center flex">
       <div className="container mx-auto">
         <div className="flex justify-between">
-          <ul className="flex items-center">
+          <ul className="flex ">
             <li className="font-semibold text-lg">
               <NavLink to="/Menu" className="text-blue-500 hover:underline">
-                <img src={Logoh} className="w-24" alt="Logo" />
+                <img src={Logoh} className="w-36" alt="Logo" />
               </NavLink>
             </li>
             <li>
@@ -67,10 +75,7 @@ const Navbar = () => {
             <li>
               <NavLink
                 to="/"
-                onClick={() => {
-                  context.setLogin(false);
-                  Modal('info', 'Sesión cerrada');
-                }}
+                onClick={() => Restore()}
                 className="text-white text-3xl font-bold"
               >
                 <HiOutlineLogout />

@@ -17,7 +17,6 @@ const handleLogin = async (email, password) => {
 
         const result = await response.json();
 
-        console.log(result);
         return result;
 
     } catch (error) {
@@ -38,7 +37,7 @@ const handleCampains = async (token) => {
         });
 
         const result = await response.json();
-        console.log(result);
+    
         return result;
 
     } catch (error) {
